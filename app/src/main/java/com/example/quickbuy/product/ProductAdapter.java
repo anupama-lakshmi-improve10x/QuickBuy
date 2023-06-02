@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.quickbuy.category.CategoryViewHolder;
-import com.example.quickbuy.category.OnItemActionListener;
 import com.example.quickbuy.databinding.CategoryItemBinding;
 import com.example.quickbuy.databinding.ProductItemBinding;
 import com.example.quickbuy.modelclass.Product;
@@ -20,10 +19,15 @@ import java.util.List;
 public class ProductAdapter extends RecyclerView.Adapter<ProductViewHolder> {
     private List<Product> products;
 
+    public OnItemActionListener onItemActionListener;
+
     public void setData(List<Product> productList) {
         this.products = productList;
         notifyDataSetChanged();
+    }
 
+    public void setOnItemActionListener(OnItemActionListener onItemActionListener) {
+        this.onItemActionListener = onItemActionListener;
     }
     @NonNull
     @Override
@@ -38,6 +42,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductViewHolder> {
        Product product = products.get(position);
        holder.binding.setProduct(product);
        holder.binding.ratingRb.setRating(product.rating.getRate());
+       holder.binding.getRoot().setOnClickListener(v -> {
+           onItemActionListener.onClicked(products.get(position).getId());
+       });
     }
 
     @Override

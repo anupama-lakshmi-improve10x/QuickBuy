@@ -1,9 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="product"
+            type="com.example.quickbuy.modelclass.Product" />
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ProductDetailsActivity">
 
+    <ImageView
+        android:id="@+id/product_details_img"
+        imageUrl="@{product.imageUrl}"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_launcher_background" />
+
+    <TextView
+        android:id="@+id/product_details_title_txt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@{product.title}"
+        tools:text ="TextView"
+        app:layout_constraintStart_toStartOf="@id/product_details_img"
+        app:layout_constraintTop_toBottomOf="@+id/product_details_img" />
+
+    <RatingBar
+        android:id="@+id/product_details_rb"
+        style="@style/Widget.AppCompat.RatingBar.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/product_details_title_txt" />
+
+    <TextView
+        android:id="@+id/product_details_count_txt"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="@{String.valueOf(product.rating.count)}"
+        tools:text="TextView"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/product_details_rb"
+        app:layout_constraintStart_toEndOf="@+id/product_details_rb"
+        app:layout_constraintTop_toTopOf="@+id/product_details_rb"
+         />
+
+    <TextView
+        android:id="@+id/product_details_price_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@{`₹` + String.valueOf(product.price)}"
+        tools:text = "TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/product_details_rb" />
+
+    <TextView
+        android:id="@+id/product_details_des_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@{product.description}"
+        tools:text = "TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/product_details_price_txt" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -7,6 +7,17 @@ public class Product {
     private Integer id;
     private String title;
     private Float price;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    private String description;
+
     @SerializedName("image")
     private String imageUrl;
     public Rating rating;

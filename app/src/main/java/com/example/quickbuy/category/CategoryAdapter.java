@@ -26,9 +26,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
     void setData(List<String> category){
         this.categories = category;
         notifyDataSetChanged();
-
     }
-
 
     @NonNull
     @Override

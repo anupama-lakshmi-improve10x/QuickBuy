@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.widget.Toast;
 
+import com.example.quickbuy.ProductDetailsActivity;
 import com.example.quickbuy.R;
 import com.example.quickbuy.category.CategoryActivity;
 import com.example.quickbuy.category.CategoryAdapter;
@@ -69,6 +71,14 @@ public class ProductActivity extends AppCompatActivity {
     private void setUpProductAdapter() {
         productAdapter = new ProductAdapter();
         productAdapter.setData(products);
+        productAdapter.setOnItemActionListener(new OnItemActionListener() {
+            @Override
+            public void onClicked(int productsId) {
+                Intent intent = new Intent(getApplicationContext(), ProductDetailsActivity.class);
+                intent.putExtra("products", productsId);
+                startActivity(intent);
+            }
+        });
     }
 
     private void setUpProductRv() {
