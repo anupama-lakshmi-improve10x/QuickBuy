@@ -8,8 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.quickbuy.databinding.ProductItemBinding;
 
 public class ProductViewHolder extends RecyclerView.ViewHolder {
-
-  public ProductItemBinding binding;
+     ProductItemBinding binding;
 
     public ProductViewHolder(@NonNull ProductItemBinding productItemBinding) {
         super(productItemBinding.getRoot());

@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.quickbuy.databinding.CategoryItemBinding;
 
 public class CategoryViewHolder extends RecyclerView.ViewHolder {
-
     CategoryItemBinding binding;
 
     public CategoryViewHolder(@NonNull CategoryItemBinding categoryItemBinding) {

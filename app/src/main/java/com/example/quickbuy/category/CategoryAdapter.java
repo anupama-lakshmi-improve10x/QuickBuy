@@ -16,10 +16,10 @@ import java.util.List;
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
 
     private List<String> categories;
-    OnItemActionListener onItemActionListener;
+    private OnItemActionListener onItemActionListener;
 
 
-    public void setOnItemActionListener(OnItemActionListener onItemActionListener) {
+     void setOnItemActionListener(OnItemActionListener onItemActionListener) {
         this.onItemActionListener = onItemActionListener;
     }
 
@@ -46,9 +46,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
                 onItemActionListener.onClicked(categories.get(position));
             }
         });
-
     }
-
     @Override
     public int getItemCount() {
         return categories.size();

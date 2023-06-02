@@ -5,8 +5,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
+import com.example.quickbuy.BaseClassActivity;
+import com.example.quickbuy.Constants;
 import com.example.quickbuy.databinding.ActivityCategoryBinding;
 import com.example.quickbuy.network.FakeApi;
 import com.example.quickbuy.network.FakeApiService;
@@ -19,7 +22,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CategoryActivity extends AppCompatActivity {
+public class CategoryActivity extends BaseClassActivity {
 
     private ActivityCategoryBinding binding;
     private ArrayList<String> categoryList = new ArrayList<>();
@@ -30,32 +33,26 @@ public class CategoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityCategoryBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-       // setUpData();
+        getSupportActionBar().setTitle("Category");
+        fetchCategories();
         setUpCategoryAdapter();
         setUpCategoryRv();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        fetchCategories();
-    }
-
     private void fetchCategories() {
-        FakeApi fakeApi = new FakeApi();
-        FakeApiService fakeApiService = fakeApi.createFakeApiService();
+        showProgressBar();
         Call<List<String>> call = fakeApiService.fetchCategories();
         call.enqueue(new Callback<List<String>>() {
             @Override
             public void onResponse(Call<List<String>> call, Response<List<String>> response) {
-                Toast.makeText(CategoryActivity.this, "Sucessfully added data", Toast.LENGTH_SHORT).show();
+                hideProgressBar();
                 List<String> categories = response.body();
                 categoryAdapter.setData(categories);
             }
-
             @Override
             public void onFailure(Call<List<String>> call, Throwable t) {
-                Toast.makeText(CategoryActivity.this, "Failed to add data", Toast.LENGTH_SHORT).show();
+                hideProgressBar();
+                showToast("Failed to add data");
             }
         });
     }
@@ -71,18 +68,18 @@ public class CategoryActivity extends AppCompatActivity {
         categoryAdapter.setOnItemActionListener(new OnItemActionListener() {
             @Override
             public void onClicked(String categoryName) {
-                Intent intent = new Intent(getApplicationContext(), ProductActivity.class);
-                intent.putExtra("category", categoryName);
+                Intent intent = new Intent(CategoryActivity.this, ProductActivity.class);
+                intent.putExtra(Constants.KEY_CATEGORY, categoryName);
                 startActivity(intent);
             }
         });
     }
 
+    private void showProgressBar() {
+        binding.progressBarPb.setVisibility(View.VISIBLE);
+    }
 
-    /*private void setUpData() {
-        categoryList = new ArrayList<>();
-        categoryList.add("Electronics");
-        categoryList.add("Jewellery");
-        categoryList.add("Women's clothing");
-    }*/
+    private void hideProgressBar() {
+        binding.progressBarPb.setVisibility(View.GONE);
+    }
 }
