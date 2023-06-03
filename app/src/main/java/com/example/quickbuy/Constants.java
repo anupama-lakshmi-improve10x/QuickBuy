@@ -10,6 +10,8 @@ public class Constants {
 
     public static final String PRODUCT_DETAILS_END_POINT = "products/";
 
+    public static final String CART_PRODUCT_END_POINT = "/carts/";
+
     public static final String KEY_CATEGORY = "category";
 
     public static final String KEY_PRODUCT = "products";

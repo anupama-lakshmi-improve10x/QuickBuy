@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.quickbuy.network.FakeApi;
 import com.example.quickbuy.network.FakeApiService;
 
-public class BaseClassActivity extends AppCompatActivity {
+public class BaseActivity extends AppCompatActivity {
 
     protected FakeApiService fakeApiService;
 

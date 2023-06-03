@@ -1,22 +1,22 @@
 package com.example.quickbuy;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
-import com.example.quickbuy.databinding.ActivityProductBinding;
+import androidx.annotation.NonNull;
+
+import com.example.quickbuy.cart.CartProductActivity;
 import com.example.quickbuy.databinding.ActivityProductDetailsBinding;
 import com.example.quickbuy.modelclass.Product;
-import com.example.quickbuy.network.FakeApi;
-import com.example.quickbuy.network.FakeApiService;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProductDetailsActivity extends BaseClassActivity {
+public class ProductDetailsActivity extends BaseActivity {
     private ActivityProductDetailsBinding binding;
     private int productId;
 
@@ -41,7 +41,6 @@ public class ProductDetailsActivity extends BaseClassActivity {
                 hideProgressBar();
                 Product product = response.body();
                 binding.setProduct(product);
-                binding.productDetailsRb.setRating(product.rating.getRate());
             }
 
             @Override
@@ -50,6 +49,23 @@ public class ProductDetailsActivity extends BaseClassActivity {
                 showToast("Failed to add Product Details");
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.cart_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.cart_icon) {
+            Intent intent = new Intent(this, CartProductActivity.class);
+            startActivity(intent);
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
     }
 
     private void showProgressBar() {

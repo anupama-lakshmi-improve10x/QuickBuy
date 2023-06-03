@@ -1,25 +1,21 @@
 package com.example.quickbuy.product;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
-import com.example.quickbuy.BaseClassActivity;
+import com.example.quickbuy.BaseActivity;
 import com.example.quickbuy.Constants;
 import com.example.quickbuy.ProductDetailsActivity;
 import com.example.quickbuy.R;
-import com.example.quickbuy.category.CategoryActivity;
-import com.example.quickbuy.category.CategoryAdapter;
+import com.example.quickbuy.cart.CartProductActivity;
 import com.example.quickbuy.databinding.ActivityProductBinding;
 import com.example.quickbuy.modelclass.Product;
-import com.example.quickbuy.network.FakeApi;
-import com.example.quickbuy.network.FakeApiService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +24,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProductActivity extends BaseClassActivity {
+public class ProductActivity extends BaseActivity {
 
     private ArrayList<Product> products = new ArrayList<>();
     private ActivityProductBinding binding;
@@ -68,7 +64,7 @@ public class ProductActivity extends BaseClassActivity {
             @Override
             public void onFailure(Call<List<Product>> call, Throwable t) {
                 hideProgressBar();
-                showToast("Failed to add product data");
+                showToast("Failed to load product data");
             }
         });
     }
@@ -84,6 +80,23 @@ public class ProductActivity extends BaseClassActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.cart_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.cart_icon){
+            Intent intent = new Intent(this, CartProductActivity.class);
+            startActivity(intent);
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
     }
 
     private void showProgressBar() {

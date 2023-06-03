@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import com.example.quickbuy.cart.Cart;
 import com.example.quickbuy.modelclass.Product;
 import com.example.quickbuy.network.FakeApi;
 import com.example.quickbuy.network.FakeApiService;
@@ -53,6 +54,16 @@ public class ExampleUnitTest {
         FakeApiService service = new FakeApi().createFakeApiService();
         Call <Product> call = service.fetchProductsDetails(1);
         Product products = call.execute().body();
+        assertNotNull(products);
+        System.out.println(new Gson().toJson(products));
+    }
+
+    @Test
+
+    public void getCartProducts() throws IOException {
+        FakeApiService service = new FakeApi().createFakeApiService();
+        Call<Cart> call = service.fetchCartProduct();
+        Cart products = call.execute().body();
         assertNotNull(products);
         System.out.println(new Gson().toJson(products));
     }

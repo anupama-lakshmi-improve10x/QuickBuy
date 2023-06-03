@@ -1,18 +1,19 @@
 package com.example.quickbuy.category;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
-import com.example.quickbuy.BaseClassActivity;
+import com.example.quickbuy.BaseActivity;
 import com.example.quickbuy.Constants;
+import com.example.quickbuy.R;
+import com.example.quickbuy.cart.CartProductActivity;
 import com.example.quickbuy.databinding.ActivityCategoryBinding;
-import com.example.quickbuy.network.FakeApi;
-import com.example.quickbuy.network.FakeApiService;
 import com.example.quickbuy.product.ProductActivity;
 
 import java.util.ArrayList;
@@ -22,8 +23,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CategoryActivity extends BaseClassActivity {
-
+public class CategoryActivity extends BaseActivity {
     private ActivityCategoryBinding binding;
     private ArrayList<String> categoryList = new ArrayList<>();
     private CategoryAdapter categoryAdapter;
@@ -74,6 +74,24 @@ public class CategoryActivity extends BaseClassActivity {
             }
         });
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.cart_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.cart_icon) {
+            Intent intent = new Intent(this, CartProductActivity.class);
+            startActivity(intent);
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
 
     private void showProgressBar() {
         binding.progressBarPb.setVisibility(View.VISIBLE);

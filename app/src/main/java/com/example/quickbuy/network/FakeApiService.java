@@ -1,6 +1,7 @@
 package com.example.quickbuy.network;
 
 import com.example.quickbuy.Constants;
+import com.example.quickbuy.cart.Cart;
 import com.example.quickbuy.modelclass.Product;
 
 import java.util.List;
@@ -19,4 +20,7 @@ public interface FakeApiService {
 
     @GET(Constants.PRODUCT_DETAILS_END_POINT + "{productId}")
     Call<Product> fetchProductsDetails(@Path("productId") int productId);
+
+    @GET("carts/1?userId=1")
+    Call<Cart> fetchCartProduct();
 }
