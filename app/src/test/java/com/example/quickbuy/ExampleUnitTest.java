@@ -5,6 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import com.example.quickbuy.cart.Cart;
+import com.example.quickbuy.category.Category;
 import com.example.quickbuy.modelclass.Product;
 import com.example.quickbuy.network.FakeApi;
 import com.example.quickbuy.network.FakeApiService;
@@ -30,8 +31,8 @@ public class ExampleUnitTest {
 
     public void getCategory() throws IOException {
         FakeApiService service = new FakeApi().createFakeApiService();
-        Call<List<String>> call = service.fetchCategories();
-        List<String> categories = call.execute().body();
+        Call<List<Category>> call = service.fetchCategories();
+        List<Category> categories = call.execute().body();
         assertNotNull(categories);
         assertFalse(categories.isEmpty());
         System.out.println(new Gson().toJson(categories));
@@ -41,7 +42,7 @@ public class ExampleUnitTest {
 
     public void getCategoryProduct() throws IOException {
         FakeApiService service = new FakeApi().createFakeApiService();
-        Call<List<Product>> call = service.fetchProducts("electronics");
+        Call<List<Product>> call = service.fetchProducts(1);
         List<Product> products = call.execute().body();
         assertNotNull(products);
         assertFalse(products.isEmpty());
@@ -52,7 +53,7 @@ public class ExampleUnitTest {
 
     public void getProductDetails() throws IOException {
         FakeApiService service = new FakeApi().createFakeApiService();
-        Call <Product> call = service.fetchProductsDetails(1);
+        Call <Product> call = service.fetchProductsDetails(4);
         Product products = call.execute().body();
         assertNotNull(products);
         System.out.println(new Gson().toJson(products));

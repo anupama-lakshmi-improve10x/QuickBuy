@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.quickbuy.BaseActivity;
 import com.example.quickbuy.Constants;
@@ -25,7 +26,7 @@ import retrofit2.Response;
 
 public class CategoryActivity extends BaseActivity {
     private ActivityCategoryBinding binding;
-    private ArrayList<String> categoryList = new ArrayList<>();
+    private ArrayList<Category> categoryList = new ArrayList<>();
     private CategoryAdapter categoryAdapter;
 
     @Override
@@ -41,18 +42,18 @@ public class CategoryActivity extends BaseActivity {
 
     private void fetchCategories() {
         showProgressBar();
-        Call<List<String>> call = fakeApiService.fetchCategories();
-        call.enqueue(new Callback<List<String>>() {
+        Call<List<Category>> call = fakeApiService.fetchCategories();
+        call.enqueue(new Callback<List<Category>>() {
             @Override
-            public void onResponse(Call<List<String>> call, Response<List<String>> response) {
-                hideProgressBar();
-                List<String> categories = response.body();
+            public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
+               hideProgressBar();
+               List<Category> categories = response.body();
                 categoryAdapter.setData(categories);
             }
+
             @Override
-            public void onFailure(Call<List<String>> call, Throwable t) {
-                hideProgressBar();
-                showToast("Failed to add data");
+            public void onFailure(Call<List<Category>> call, Throwable t) {
+                Toast.makeText(CategoryActivity.this, "Failed to add data", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -66,10 +67,11 @@ public class CategoryActivity extends BaseActivity {
         categoryAdapter = new CategoryAdapter();
         categoryAdapter.setData(categoryList);
         categoryAdapter.setOnItemActionListener(new OnItemActionListener() {
+
             @Override
-            public void onClicked(String categoryName) {
+            public void onClicked(Integer categoryId) {
                 Intent intent = new Intent(CategoryActivity.this, ProductActivity.class);
-                intent.putExtra(Constants.KEY_CATEGORY, categoryName);
+                intent.putExtra(Constants.KEY_CATEGORY, categoryId);
                 startActivity(intent);
             }
         });

@@ -14,6 +14,7 @@ import com.example.quickbuy.Constants;
 import com.example.quickbuy.ProductDetailsActivity;
 import com.example.quickbuy.R;
 import com.example.quickbuy.cart.CartProductActivity;
+import com.example.quickbuy.category.CategoryActivity;
 import com.example.quickbuy.databinding.ActivityProductBinding;
 import com.example.quickbuy.modelclass.Product;
 
@@ -29,7 +30,7 @@ public class ProductActivity extends BaseActivity {
     private ArrayList<Product> products = new ArrayList<>();
     private ActivityProductBinding binding;
     private ProductAdapter productAdapter;
-    private String category;
+    int categoryId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +39,8 @@ public class ProductActivity extends BaseActivity {
         setContentView(binding.getRoot());
         getSupportActionBar().setTitle("Products");
         if (getIntent().hasExtra(Constants.KEY_CATEGORY)) {
-            category = getIntent().getStringExtra(Constants.KEY_CATEGORY);
+            categoryId = getIntent().getIntExtra(Constants.KEY_CATEGORY,0);
+           //category = getIntent().getStringExtra(Constants.KEY_CATEGORY);
         }
         setUpProductAdapter();
         setUpProductRv();
@@ -52,7 +54,7 @@ public class ProductActivity extends BaseActivity {
 
     private void fetchProductCategory() {
         showProgressBar();
-        Call<List<Product>> call = fakeApiService.fetchProducts(category);
+        Call<List<Product>> call = fakeApiService.fetchProducts(categoryId);
         call.enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {

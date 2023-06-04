@@ -42,7 +42,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductViewHolder> {
        Product product = products.get(position);
        holder.binding.setProduct(product);
        holder.binding.getRoot().setOnClickListener(v -> {
-           onItemActionListener.onClicked(products.get(position).getId());
+           onItemActionListener.onClicked(product.getId());
        });
     }
 

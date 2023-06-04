@@ -8,14 +8,13 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.quickbuy.Category;
 import com.example.quickbuy.databinding.CategoryItemBinding;
 
 import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
 
-    private List<String> categories;
+    private List<Category> categories;
     private OnItemActionListener onItemActionListener;
 
 
@@ -23,7 +22,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
         this.onItemActionListener = onItemActionListener;
     }
 
-    void setData(List<String> category){
+    void setData(List<Category> category){
         this.categories = category;
         notifyDataSetChanged();
     }
@@ -38,12 +37,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        String category = categories.get(position);
-        holder.binding.setCategory(new Category(category));
+        Category category = categories.get(position);
+        holder.binding.setCategory(category);
         holder.binding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onItemActionListener.onClicked(categories.get(position));
+                onItemActionListener.onClicked(category.getId());
             }
         });
     }
