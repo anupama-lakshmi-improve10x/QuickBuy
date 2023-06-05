@@ -68,4 +68,14 @@ public class ExampleUnitTest {
         assertNotNull(products);
         System.out.println(new Gson().toJson(products));
     }
+
+    @Test
+
+    public void getSearchProducts() throws IOException {
+        FakeApiService service = new FakeApi().createFakeApiService();
+        Call<List<Product>> call = service.fetchSearchProducts("Generic");
+        List<Product> products = call.execute().body();
+        assertNotNull(products);
+        System.out.println(new Gson().toJson(products));
+    }
 }

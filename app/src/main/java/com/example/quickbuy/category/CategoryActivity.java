@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.example.quickbuy.BaseActivity;
 import com.example.quickbuy.Constants;
 import com.example.quickbuy.R;
+import com.example.quickbuy.SearchProductsActivity;
 import com.example.quickbuy.cart.CartProductActivity;
 import com.example.quickbuy.databinding.ActivityCategoryBinding;
 import com.example.quickbuy.product.ProductActivity;
@@ -89,7 +90,12 @@ public class CategoryActivity extends BaseActivity {
             Intent intent = new Intent(this, CartProductActivity.class);
             startActivity(intent);
             return true;
-        } else {
+        } else if(item.getItemId() == R.id.search_icon) {
+            Intent intent = new Intent(this, SearchProductsActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        else {
             return super.onOptionsItemSelected(item);
         }
     }

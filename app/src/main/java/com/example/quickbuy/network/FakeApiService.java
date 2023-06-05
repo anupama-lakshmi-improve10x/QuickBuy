@@ -25,4 +25,7 @@ public interface FakeApiService {
 
     @GET("carts/1?userId=1")
     Call<Cart> fetchCartProduct();
+
+    @GET("products/")
+    Call<List<Product>> fetchSearchProducts(@Query("title") String title);
 }
